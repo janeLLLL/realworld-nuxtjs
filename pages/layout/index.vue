@@ -33,7 +33,7 @@
                   username: user.username,
                 }
               }">
-                <img.
+                <img
                   class="user-pic"
                   :src="user.image"
                 />
