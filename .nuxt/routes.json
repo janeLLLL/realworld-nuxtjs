@@ -1,0 +1,43 @@
+[
+  {
+    "path": "/",
+    "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\layout",
+    "children": [
+      {
+        "path": "",
+        "name": "home",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\home"
+      },
+      {
+        "path": "/login",
+        "name": "login",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\login"
+      },
+      {
+        "path": "/register",
+        "name": "register",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\login"
+      },
+      {
+        "path": "/profile",
+        "name": "profile",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\profile"
+      },
+      {
+        "path": "/settings",
+        "name": "settings",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\settings"
+      },
+      {
+        "path": "/editor",
+        "name": "editor",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\editor"
+      },
+      {
+        "path": "/article/:slug",
+        "name": "article",
+        "component": "D:\\\\培训\\\\test\\\\新建文件夹\\\\realworld-nuxtjs\\\\pages\\\\article"
+      }
+    ]
+  }
+]
