@@ -3,7 +3,7 @@
     <nuxt-link
       :to="{
         name: 'profile',
-        params: {
+        query: {
           username: article.author.username,
         },
       }"
@@ -15,7 +15,7 @@
         class="a"
         :to="{
           name: 'profile',
-          params: {
+          query: {
             username: article.author.username,
           },
         }"
@@ -28,10 +28,15 @@
       :class="{
         active: article.author.following,
       }"
+      @click="userFollow(article.author)"
       v-if="user.username !== article.author.username"
     >
-      <i class="ion-plus-round"></i>
-      &nbsp; Follow Eric Simons <span class="counter">(10)</span>
+      <i :class="article.author.following ? 'ion-plus-reduce' : 'ion-plus-round'"></i>
+      &nbsp;{{
+        article.author.following
+                  ? "unFollow&nbsp;" + article.author.username
+                  : "Follow&nbsp;" + article.author.username
+      }}
     </button>
     <button
       class="btn btn-sm btn-outline-secondary"
@@ -47,11 +52,13 @@
       :class="{
         active: article.author.favorited,
       }"
+      @click="onFavorite(article)"
+      :disabled="article.favoriteDisabled"
       v-if="user.username !== article.author.username"
     >
       <i class="ion-heart"></i>
       &nbsp; Favorite Post
-      <span class="counter">({{ article.favoritesCount }}})</span>
+      <span class="counter">({{ article.favoritesCount }})</span>
     </button>
     <button class="btn btn-outline-danger btn-sm" @click="deleteArticle" v-else>
       <i class="ion-trash-a"></i>
@@ -62,7 +69,8 @@
 
 <script>
 import { mapState } from "vuex";
-import { deleteArticle } from "@/api/article";
+import { deleteArticle,addFavorite, deleteFavorite } from "@/api/article";
+import { follow, unFollow } from "@/api/profile";
 
 export default {
   name: "ArticleMeta",
@@ -87,6 +95,33 @@ export default {
     async deleteArticle() {
       await deleteArticle(this.article.slug)
       this.$router.push('/')
+    },
+    //关注/取关用户
+    async userFollow(profile) {
+      if (profile.following) {
+        await unFollow(profile.username);
+      } else {
+        await follow(profile.username);
+      }
+      profile.following = !profile.following;
+    },
+    //点赞
+    async onFavorite(article) {
+      article.favoriteDisabled = true;
+      console.log(article.favoriteDisabled);
+      if (article.favorited) {
+        //取消点赞
+        await deleteFavorite(article.slug);
+        article.favorited = false;
+        article.favoritesCount += -1;
+      } else {
+        //添加点赞
+        await addFavorite(article.slug);
+        article.favorited = true;
+        article.favoritesCount += 1;
+      }
+      article.favoriteDisabled = false;
+      console.log(article.favoriteDisabled);
     },
   },
 };

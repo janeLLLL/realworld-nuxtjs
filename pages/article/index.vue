@@ -36,6 +36,7 @@ import ArticleComments from './components/article-comments'
 
 export default {
   name: "ArticleIndex",
+  middleware: "authenticated",
 
   async asyncData({ params }) {
     const { data } = await getArticle(params.slug);
